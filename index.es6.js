@@ -32,7 +32,7 @@ class Save extends Component {
     }, children)
   }
 
-  async handleOk(event) {
+  handleOk = async (event) => {
     this.setState({saving: true})
     try {
       await this.props.handleSave(event)
@@ -42,24 +42,24 @@ class Save extends Component {
     return this.handleSaved(event)
   }
 
-  handleSaved(event) {
+  handleSaved = (event) => {
     this.setState({
       visible: false,
       saving: false,
     })
   }
 
-  handleNotSaved(event) {
+  handleNotSaved = (event) => {
     this.setState({
       saving: false,
     })
   }
 
-  handleCancel(event) {
+  handleCancel = (event) => {
     if (!this.state.saving) this.setState({visible: false})
   }
 
-  handleClosed() {
+  handleClosed = () => {
     this.props.handleClosed()
     this.setState({visible: true})
   }

@@ -25,9 +25,69 @@ var Save = function (_Component) {
   _inherits(Save, _Component);
 
   function Save(props) {
+    var _this2 = this;
+
     _classCallCheck(this, Save);
 
     var _this = _possibleConstructorReturn(this, (Save.__proto__ || Object.getPrototypeOf(Save)).call(this, props));
+
+    _this.handleOk = function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(event) {
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _this.setState({ saving: true });
+                _context.prev = 1;
+                _context.next = 4;
+                return _this.props.handleSave(event);
+
+              case 4:
+                _context.next = 9;
+                break;
+
+              case 6:
+                _context.prev = 6;
+                _context.t0 = _context['catch'](1);
+                return _context.abrupt('return', _this.handleNotSaved(event));
+
+              case 9:
+                return _context.abrupt('return', _this.handleSaved(event));
+
+              case 10:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, _this2, [[1, 6]]);
+      }));
+
+      return function (_x) {
+        return _ref.apply(this, arguments);
+      };
+    }();
+
+    _this.handleSaved = function (event) {
+      _this.setState({
+        visible: false,
+        saving: false
+      });
+    };
+
+    _this.handleNotSaved = function (event) {
+      _this.setState({
+        saving: false
+      });
+    };
+
+    _this.handleCancel = function (event) {
+      if (!_this.state.saving) _this.setState({ visible: false });
+    };
+
+    _this.handleClosed = function () {
+      _this.props.handleClosed();
+      _this.setState({ visible: true });
+    };
 
     _this.state = {
       visible: true,
@@ -58,71 +118,6 @@ var Save = function (_Component) {
         onCancel: this.handleCancel,
         afterClose: this.handleClosed
       }, children);
-    }
-  }, {
-    key: 'handleOk',
-    value: function () {
-      var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(event) {
-        return regeneratorRuntime.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                this.setState({ saving: true });
-                _context.prev = 1;
-                _context.next = 4;
-                return this.props.handleSave(event);
-
-              case 4:
-                _context.next = 9;
-                break;
-
-              case 6:
-                _context.prev = 6;
-                _context.t0 = _context['catch'](1);
-                return _context.abrupt('return', this.handleNotSaved(event));
-
-              case 9:
-                return _context.abrupt('return', this.handleSaved(event));
-
-              case 10:
-              case 'end':
-                return _context.stop();
-            }
-          }
-        }, _callee, this, [[1, 6]]);
-      }));
-
-      function handleOk(_x) {
-        return _ref.apply(this, arguments);
-      }
-
-      return handleOk;
-    }()
-  }, {
-    key: 'handleSaved',
-    value: function handleSaved(event) {
-      this.setState({
-        visible: false,
-        saving: false
-      });
-    }
-  }, {
-    key: 'handleNotSaved',
-    value: function handleNotSaved(event) {
-      this.setState({
-        saving: false
-      });
-    }
-  }, {
-    key: 'handleCancel',
-    value: function handleCancel(event) {
-      if (!this.state.saving) this.setState({ visible: false });
-    }
-  }, {
-    key: 'handleClosed',
-    value: function handleClosed() {
-      this.props.handleClosed();
-      this.setState({ visible: true });
     }
   }]);
 
