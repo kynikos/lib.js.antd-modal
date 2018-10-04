@@ -17,11 +17,12 @@ class Save extends Component {
   }
 
   render() {
-    const {title, saveText, children} = this.props
+    const {title, width, saveText, children} = this.props
     const {visible, saving} = this.state
 
     return h(AntDModal, {
       title,
+      width,
       okText: saveText,
       visible,
       destroyOnClose: true,

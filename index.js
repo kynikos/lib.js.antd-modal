@@ -101,6 +101,7 @@ var Save = function (_Component) {
     value: function render() {
       var _props = this.props,
           title = _props.title,
+          width = _props.width,
           saveText = _props.saveText,
           children = _props.children;
       var _state = this.state,
@@ -110,6 +111,7 @@ var Save = function (_Component) {
 
       return h(AntDModal, {
         title: title,
+        width: width,
         okText: saveText,
         visible: visible,
         destroyOnClose: true,
