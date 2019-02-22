@@ -3,8 +3,8 @@
 // Licensed under MIT
 // https://github.com/kynikos/lib.js.antd-modal/blob/master/LICENSE
 
-const {Component, createElement: h} = require('react')
-const AntDModal = require('antd/lib/modal')
+const {Children, Component, createElement: h} = require('react')
+const AntDModal = require('antd/lib/modal').default
 
 
 class Save extends Component {
@@ -30,7 +30,7 @@ class Save extends Component {
       onOk: this.handleOk,
       onCancel: this.handleCancel,
       afterClose: this.handleClosed,
-    }, children)
+    }, Children.toArray(children))
   }
 
   handleOk = async (event) => {

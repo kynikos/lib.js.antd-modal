@@ -16,10 +16,11 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 // https://github.com/kynikos/lib.js.antd-modal/blob/master/LICENSE
 
 var _require = require('react'),
+    Children = _require.Children,
     Component = _require.Component,
     h = _require.createElement;
 
-var AntDModal = require('antd/lib/modal');
+var AntDModal = require('antd/lib/modal').default;
 
 var Save = function (_Component) {
   _inherits(Save, _Component);
@@ -119,7 +120,7 @@ var Save = function (_Component) {
         onOk: this.handleOk,
         onCancel: this.handleCancel,
         afterClose: this.handleClosed
-      }, children);
+      }, Children.toArray(children));
     }
   }]);
 
