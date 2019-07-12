@@ -104,6 +104,7 @@ var Save = function (_Component) {
           title = _props.title,
           width = _props.width,
           saveText = _props.saveText,
+          saveLoading = _props.saveLoading,
           children = _props.children;
       var _state = this.state,
           visible = _state.visible,
@@ -116,7 +117,7 @@ var Save = function (_Component) {
         okText: saveText,
         visible: visible,
         destroyOnClose: true,
-        confirmLoading: saving,
+        confirmLoading: saveLoading || saving,
         onOk: this.handleOk,
         onCancel: this.handleCancel,
         afterClose: this.handleClosed

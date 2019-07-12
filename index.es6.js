@@ -17,7 +17,7 @@ class Save extends Component {
   }
 
   render() {
-    const {title, width, saveText, children} = this.props
+    const {title, width, saveText, saveLoading, children} = this.props
     const {visible, saving} = this.state
 
     return h(AntDModal, {
@@ -26,7 +26,7 @@ class Save extends Component {
       okText: saveText,
       visible,
       destroyOnClose: true,
-      confirmLoading: saving,
+      confirmLoading: saveLoading || saving,
       onOk: this.handleOk,
       onCancel: this.handleCancel,
       afterClose: this.handleClosed,
