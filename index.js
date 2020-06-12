@@ -104,6 +104,7 @@ var Save = function (_Component) {
           title = _props.title,
           width = _props.width,
           saveText = _props.saveText,
+          okButtonProps = _props.okButtonProps,
           saveLoading = _props.saveLoading,
           children = _props.children;
       var _state = this.state,
@@ -118,6 +119,7 @@ var Save = function (_Component) {
         visible: visible,
         destroyOnClose: true,
         confirmLoading: saveLoading || saving,
+        okButtonProps: okButtonProps,
         onOk: this.handleOk,
         onCancel: this.handleCancel,
         afterClose: this.handleClosed
