@@ -3,71 +3,70 @@
 // Licensed under MIT
 // https://github.com/kynikos/lib.js.antd-modal/blob/master/LICENSE
 
-const {Children, Component, createElement: h} = require('react')
-const AntDModal = require('antd/lib/modal').default
+import {createElement as h, useState} from 'react'
+import AntDModal from 'antd/lib/modal'
 
 
-class Save extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
+export function Save({
+  title, width, saveText, okButtonProps, saveLoading, children, handleSave,
+  handleClosed,
+}) {
+  const [state, setState] = useState({
+    visible: true,
+    saving: false,
+  })
+
+  return h(AntDModal, {
+    title,
+    width,
+    okText: saveText,
+    visible: state.visible,
+    destroyOnClose: true,
+    confirmLoading: saveLoading || state.saving,
+    okButtonProps,
+    onOk: (event) => handleOk(event, setState, handleSave),
+    onCancel: () => handleCancel(state.saving, setState),
+    afterClose: () => handleClosed2(setState, handleClosed),
+    children,
+  })
+}
+
+
+async function handleOk(event, setState, handleSave) {
+  setState({
+    visible: true,
+    saving: true,
+  })
+
+  try {
+    await handleSave(event)
+  } catch (error) {
+    return setState({
       visible: true,
       saving: false,
-    }
+    })
   }
+  return setState({
+    visible: false,
+    saving: false,
+  })
+}
 
-  render() {
-    const {title, width, saveText, okButtonProps, saveLoading, children} =
-      this.props
-    const {visible, saving} = this.state
 
-    return h(AntDModal, {
-      title,
-      width,
-      okText: saveText,
-      visible,
-      destroyOnClose: true,
-      confirmLoading: saveLoading || saving,
-      okButtonProps,
-      onOk: this.handleOk,
-      onCancel: this.handleCancel,
-      afterClose: this.handleClosed,
-    }, Children.toArray(children))
-  }
-
-  handleOk = async (event) => {
-    this.setState({saving: true})
-    try {
-      await this.props.handleSave(event)
-    } catch (error) {
-      return this.handleNotSaved(event)
-    }
-    return this.handleSaved(event)
-  }
-
-  handleSaved = (event) => {
-    this.setState({
+function handleCancel(saving, setState) {
+  if (!saving) {
+    setState({
       visible: false,
       saving: false,
     })
   }
-
-  handleNotSaved = (event) => {
-    this.setState({
-      saving: false,
-    })
-  }
-
-  handleCancel = (event) => {
-    if (!this.state.saving) this.setState({visible: false})
-  }
-
-  handleClosed = () => {
-    this.props.handleClosed()
-    this.setState({visible: true})
-  }
 }
 
-module.exports = {
-  Save,
+
+function handleClosed2(setState, handleClosed) {
+  handleClosed()
+  setState({
+    visible: true,
+    saving: false,
+  })
 }
