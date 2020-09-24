@@ -12,7 +12,7 @@
     "ant-design react modal"
   ],
   "dependencies": {
-    "antd": "^3.13.5",
-    "react": "^16.8.3"
+    "antd": "^4.6.5",
+    "react": "^16.13.1"
   }
 }
