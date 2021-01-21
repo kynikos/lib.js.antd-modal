@@ -7,9 +7,17 @@ import {createElement as h, useState} from 'react'
 import AntDModal from 'antd/lib/modal'
 
 
+// https://stackoverflow.com/a/4819886
+function isTouchDevice() {
+  return ('ontouchstart' in window) ||
+    (navigator.maxTouchPoints > 0) ||
+    (navigator.msMaxTouchPoints > 0)
+}
+
+
 export function Save({
-  title, width, saveText, okButtonProps, saveLoading, children, handleSave,
-  handleClosed,
+  title, width, saveText, okButtonProps, maskClosableOnTouch = true,
+  saveLoading, children, handleSave, handleClosed,
 }) {
   const [state, setState] = useState({
     visible: true,
@@ -21,6 +29,7 @@ export function Save({
     width,
     okText: saveText,
     visible: state.visible,
+    maskClosable: Boolean(maskClosableOnTouch) || !isTouchDevice(),
     destroyOnClose: true,
     confirmLoading: saveLoading || state.saving,
     okButtonProps,
