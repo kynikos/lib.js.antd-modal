@@ -42,7 +42,7 @@ export function Save({
 
 
 async function handleOk(event, setState, handleSave) {
-  setState({
+  await setState({
     visible: true,
     saving: true,
   })
@@ -64,17 +64,18 @@ async function handleOk(event, setState, handleSave) {
 
 function handleCancel(saving, setState) {
   if (!saving) {
-    setState({
+    return setState({
       visible: false,
       saving: false,
     })
   }
+  return null
 }
 
 
-function handleClosed2(setState, handleClosed) {
-  handleClosed()
-  setState({
+async function handleClosed2(setState, handleClosed) {
+  await handleClosed()
+  return setState({
     visible: true,
     saving: false,
   })
